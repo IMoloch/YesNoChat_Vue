@@ -1,0 +1,14 @@
+services:
+  yesno:
+    container_name: yesno
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "npm install && npm run dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/home/app
+      - type: bind
+        source: .
+        target: /home/app
