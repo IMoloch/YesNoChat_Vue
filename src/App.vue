@@ -1,16 +1,10 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <header class="sticky top-0">
-      <HeaderBar />
-    </header>
+  <header class="">
+    <HeaderBar />
+  </header>
 
-    <main>
-      <MainScreen :chatMessages="chatMessages" />
-    </main>
-    <footer class="sticky bottom-0">
-      <SendBar @messageSent="handleMessageSent" />
-    </footer>
-  </div>
+  <MainScreen class="MainScreen" :chatMessages="chatMessages" />
+  <SendBar class="SendBar" :loadingStatus="loadingStatus" @messageSent="handleMessageSent" />
 </template>
 
 <script setup lang="ts">
@@ -18,21 +12,35 @@ import MainScreen from './components/MainScreen.vue'
 import HeaderBar from './components/HeaderBar.vue'
 import SendBar from './components/SendBar.vue'
 
+import axios from 'axios'
 import { ref } from 'vue'
 
-const chatMessages = ref([
-  {
-    sender: 'user',
-    message: "Hey, how's your day going?"
-  },
-  {
-    sender: 'bot',
-    message: 'Not too bad, just a bit busy. How about you?',
-    image: 'https://yesno.wtf/assets/yes/5-64c2804cc48057b94fd0b3eaf323d92c.gif'
-  }
-])
+const chatMessages = ref<ChatMessage[]>([])
+const loadingStatus = ref(false)
 
-const handleMessageSent = (userMessage: string) => {
-  console.log(userMessage)
+const handleMessageSent = async (messageData: any) => {
+  loadingStatus.value = true
+  chatMessages.value.push(messageData, { sender: 'bot', message: 'Cargando...' })
+  await axios
+    .get('https://yesno.wtf/api')
+    .then((response) => {
+      const botMessage = {
+        sender: 'bot',
+        message: response.data.answer,
+        image: response.data.image
+      }
+      chatMessages.value.splice(-1, 1, botMessage)
+    })
+    .catch((error) => {
+      console.log(error)
+      const botMessage = {
+        sender: 'bot',
+        message: '⚠️ Ha ocurrido un problema, intente de nuevo más tarde'
+      }
+      chatMessages.value.splice(-1, 1, botMessage)
+    })
+    .finally(() => {
+      loadingStatus.value = false
+    })
 }
 </script>

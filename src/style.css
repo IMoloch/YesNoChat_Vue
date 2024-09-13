@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+header {
+  top: 0px;
+  position: sticky;
+  height: 3.5rem;
+}
+
+.MainScreen {
+  height: 85.5vh;
+  overflow-y: auto;
+  background-color: rgb(209 213 219);
+}
+
+.SendBar {
+  position: sticky;
+  bottom: 0%;
+  height: 4.5rem;
+}
