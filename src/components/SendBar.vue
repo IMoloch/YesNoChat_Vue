@@ -9,8 +9,8 @@
       />
       <button
         class="bg-sky-900 text-white rounded-full p-2 ml-2 focus:outline-none"
-        :class="[userMessage && !loadingStatus ? 'hover:bg-blue-600' : '']"
-        :disabled="!userMessage || loadingStatus"
+        :class="[userMessage.trim() && !loadingStatus ? 'hover:bg-blue-600' : '']"
+        :disabled="!userMessage.trim() || loadingStatus"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ defineProps<{
 const emit = defineEmits(['messageSent'])
 
 const onSubmit = () => {
-  if (!userMessage.value) {
+  if (!userMessage.value.trim()) {
     return null
   }
   const messageData = {

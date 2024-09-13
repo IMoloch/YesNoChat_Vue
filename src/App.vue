@@ -18,7 +18,7 @@ import { ref } from 'vue'
 const chatMessages = ref<ChatMessage[]>([])
 const loadingStatus = ref(false)
 
-const handleMessageSent = async (messageData: any) => {
+const handleMessageSent = async (messageData: ChatMessage) => {
   loadingStatus.value = true
   chatMessages.value.push(messageData, { sender: 'bot', message: 'Cargando...' })
   await axios
