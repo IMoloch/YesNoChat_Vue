@@ -1,14 +1,18 @@
 # yesno-api
 
-This template should help get you started developing with Vue 3 in Vite.
+Chat básico utilizando la API de YESNO.api. envias un mensaje, y te devuelve un si/no con un GIF
 
-## Recommended IDE Setup
+## Docker
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Ver [Docker] (https://www.docker.com/)
 
-## Type Support for `.vue` Imports in TS
+## Dockerizado para ambiente de desarrollo para iniciar con Docker Compose
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Docker Compose Inicialización
+
+```sh
+docker compose -f docker-compose-dev.yml up
+```
 
 ## Customize configuration
 
@@ -30,16 +34,4 @@ npm run dev
 
 ```sh
 npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
 ```
