@@ -35,12 +35,15 @@
 import { ref } from 'vue'
 
 const userMessage = ref('')
+// Definimos los props y su tipado
 defineProps<{
   loadingStatus: boolean
 }>()
 
+// Definimos el Emit personalizado de este componente
 const emit = defineEmits(['messageSent'])
 
+// Funcion que maneja el evento de del Formulario
 const onSubmit = () => {
   if (!userMessage.value.trim()) {
     return null
@@ -50,6 +53,7 @@ const onSubmit = () => {
     message: userMessage.value
   }
 
+  //Declaramos que vamos a pasar por el Emit "messageSent" con el argumento "messageData" 
   emit('messageSent', messageData)
   userMessage.value = ''
 }
